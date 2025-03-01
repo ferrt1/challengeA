@@ -58,7 +58,7 @@ body {
   padding: 10px;
   text-align: center;
   display: flex;
-  flex-wrap: wrap; /* Permite que los elementos se acomoden dentro */
+  flex-wrap: wrap; 
   align-items: flex-start;
   justify-content: center;
   font-weight: bold;
