@@ -1,29 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clasificación de Conceptos</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
 
-<h2 id="nivel-titulo"></h2>
+    <div id="titulo" class="titulo-principal">
+        <h2 id="nivel-titulo">
+            Clasificación de Conceptos
+          </h2>
+          
+          <button id="hint-button" aria-label="Mostrar pista"> Pista 🔍</button>
+    </div>
 
-<div class="container">
-    <div id="items-container"></div>
+    <div id="hint-box" class="hidden">
+        <span id="hint-text" class="hint-text"></span>
+        <button id="close-hint" aria-label="Cerrar pista">❌</button>
+    </div>
+    
+    <div class="error-container">
+        <div id="error-message"></div>
+      </div>
 
-    <div id="box-container" class="box-container"></div>
-</div>
+    <div class="container">
+      <div id="items-container"></div>
 
-<div class="error-container">
-    <div id="error-message"></div>
-</div>
+      <div id="box-container" class="box-container"></div>
+    </div>
 
-<button id="back-level" class="hidden">Volver</button>
-<button id="next-level" class="hidden">Siguiente Nivel</button>
 
-<script src="script.js"></script>
+    <div class="button-container">
+      <button id="back-level" class="hidden action-button" aria-label="Volver al nivel anterior">Volver</button>
+      <button id="next-level" class="hidden action-button" aria-label="Avanzar al siguiente nivel">Siguiente</button>
+    </div>
 
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

@@ -10,14 +10,22 @@ const niveles = {
             { id: "else-item", texto: "Else", categoria: "condicional" },
             { id: "switch-item", texto: "Switch", categoria: "condicional" },
             { id: "ternario-item", texto: "Operador Ternario", categoria: "condicional" },
-            { id: "for-item", texto: "for", categoria: "bucle" },
-            { id: "while-item", texto: "while", categoria: "bucle" },
-            { id: "do-while-item", texto: "do-while", categoria: "bucle" },
-            { id: "foreach-item", texto: "foreach", categoria: "bucle" }
+            { id: "for-item", texto: "For", categoria: "bucle" },
+            { id: "while-item", texto: "While", categoria: "bucle" },
+            { id: "do-while-item", texto: "Do-While", categoria: "bucle" },
+            { id: "foreach-item", texto: "ForEach", categoria: "bucle" }
         ],
         boxes: [
             { id: "condicional", texto: "Condicionales" },
             { id: "bucle", texto: "Bucles" }
+        ],
+        hints: [
+            "Los condicionales controlan el flujo de un programa.",
+            "El operador ternario es una forma compacta de escribir un 'if'.",
+            "Un 'switch' se usa cuando tienes múltiples condiciones relacionadas.",
+            "Los bucles se usan para repetir acciones.",
+            "El bucle 'for' es útil cuando sabes cuántas veces repetir algo.",
+            "El 'while' se usa cuando no sabes cuántas veces repetir algo."
         ]
     },
     2: {
@@ -33,8 +41,15 @@ const niveles = {
             { id: "list-item", texto: "Listas (List)", categoria: "complejo" }
         ],
         boxes: [
-            { id: "primitivo", texto: "Primitivos (Números, Cadenas, Booleanos)" },
-            { id: "complejo", texto: "Complejos (Arrays, Objetos)" }
+            { id: "primitivo", texto: "Primitivos" },
+            { id: "complejo", texto: "Complejos" }
+        ],
+        hints: [
+            "Los datos primitivos son los más básicos y no se pueden dividir.",
+            "Los enteros se usan para números sin decimales.",
+            "Las cadenas de texto son secuencias de caracteres.",
+            "Los objetos son estructuras de datos más complejas que pueden contener múltiples tipos de datos.",
+            "Las listas pueden almacenar elementos de cualquier tipo, incluyendo otros objetos."
         ]
     },
     3: {
@@ -50,31 +65,46 @@ const niveles = {
             { id: "estructuras-control-item", texto: "Estructuras de Control", categoria: "imperativa" }
         ],
         boxes: [
-            { id: "poo", texto: "Programación Orientada a Objetos (POO)" },
+            { id: "poo", texto: "Programación Orientada a Objetos" },
             { id: "funcional", texto: "Programación Funcional" },
             { id: "imperativa", texto: "Programación Imperativa" }
+        ],
+        hints: [
+            "Los objetos agrupan datos y comportamientos relacionados.",
+            "La herencia permite crear nuevas clases basadas en otras.",
+            "El polimorfismo permite que un mismo método se comporte de diferentes maneras.",
+            "En la programación funcional, las funciones son los elementos básicos.",
+            "Las funciones puras no tienen efectos secundarios y siempre devuelven el mismo resultado para los mismos parámetros.",
+            "La programación imperativa se enfoca en cómo se deben hacer las cosas paso a paso."
         ]
     },
     4: {
         titulo: "Nivel 4: Errores y Depuración",
         items: [
-            { id: "falta-puntocoma-item", texto: "Falta de punto y coma", categoria: "sintaxis" },
-            { id: "parentesis-item", texto: "Olvidar cerrar un paréntesis", categoria: "sintaxis" },
-            { id: "variable-nodefinida-item", texto: "Variable no definida", categoria: "logico" },
-            { id: "bucle-infinito-item", texto: "Bucle Infinito", categoria: "logico" },
-            { id: "unit-test-item", texto: "Pruebas Unitarias", categoria: "pruebas" },
-            { id: "aserciones-item", texto: "Aserciones", categoria: "pruebas" }
+            { id: "sintaxis-item", texto: "No cerrar paréntesis", categoria: "sintaxis" },
+            { id: "variable-no-declarada-item", texto: "Variable no declarada", categoria: "sintaxis" },
+            { id: "infinito-item", texto: "Bucle infinito", categoria: "logico" },
+            { id: "null-item", texto: "Acceso a null", categoria: "logico" },
+            { id: "test-unitario-item", texto: "Prueba unitaria", categoria: "unitaria" },
+            { id: "assert-item", texto: "Asserts", categoria: "unitaria" }
         ],
         boxes: [
             { id: "sintaxis", texto: "Errores de Sintaxis" },
             { id: "logico", texto: "Errores Lógicos" },
-            { id: "pruebas", texto: "Pruebas Unitarias" }
+            { id: "unitaria", texto: "Pruebas Unitarias" }
+        ],
+        hints: [
+            "Los errores de sintaxis ocurren cuando el código no sigue las reglas del lenguaje.",
+            "Los errores lógicos no impiden la ejecución del código pero causan resultados incorrectos.",
+            "Las pruebas unitarias permiten verificar que las funciones se comportan como se espera.",
+            "Usar asserts ayuda a comprobar que el estado del programa es el esperado en las pruebas."
         ]
     }
 };
 
 let nivelActual = 1;
 let cantidadErrores = 0;
+let pistaIndex = 0;
 
 function iniciarNivel(nivel) {
     nivelActual = nivel;
@@ -84,6 +114,9 @@ function iniciarNivel(nivel) {
     let itemsContainer = document.getElementById("items-container");
     let boxContainer = document.getElementById("box-container");
     
+    const hintBox = document.getElementById("hint-box");
+    hintBox.classList.remove("show");
+
     cantidadErrores = 0;
     document.getElementById("error-message").innerText = ""; 
 
@@ -131,22 +164,34 @@ function iniciarNivel(nivel) {
             e.preventDefault();
             let id = e.dataTransfer.getData("text");
             let draggedElement = document.getElementById(id);
-
+        
             let categoria = data.items.find(item => item.id === id)?.categoria;
             if (categoria === box.id) {
                 div.appendChild(draggedElement);
-                draggedElement.style.background = "lightgreen";
+                draggedElement.style.background = "#b8daba";
+                draggedElement.style.border = "1px solid #70b578";
                 draggedElement.setAttribute("draggable", "false");
                 verificarNivelCompletado();
             } else {
-                alert("Incorrecto, intenta de nuevo");
-                cantidadErrores++; 
-                document.getElementById("error-message").innerText = `Errores: ${cantidadErrores}`; 
+                cantidadErrores++;
+                document.getElementById("error-message").innerText = `Errores: ${cantidadErrores}`;
+        
+                document.body.classList.add("error");
+                document.body.classList.add("shake");
+                document.getElementById("error-message").style.color = "black";
+                setTimeout(() => {
+                    document.body.classList.remove("shake");
+                    document.body.classList.remove("error");
+                    document.getElementById("error-message").style.color = "#d61b1b";
+
+                }, 1000); 
             }
         });
     });
+
     document.getElementById("next-level").classList.add("hidden");
 }
+
 
 function verificarNivelCompletado() {
     let totalItems = document.querySelectorAll(".item").length;
@@ -167,7 +212,6 @@ document.getElementById("back-level").addEventListener("click", () => {
     } 
 });
 
-
 document.getElementById("next-level").addEventListener("click", () => {
     let siguienteNivel = nivelActual + 1;
     if (niveles[siguienteNivel]) {
@@ -175,4 +219,27 @@ document.getElementById("next-level").addEventListener("click", () => {
     } else {
         alert("¡Felicidades! Has completado todos los niveles.");
     }
+});
+
+document.getElementById("hint-button").addEventListener("click", () => {
+    const hintBox = document.getElementById("hint-box");
+    const hintText = document.getElementById("hint-text");
+    const data = niveles[nivelActual];
+
+    if (data.hints) {
+        if (pistaIndex < data.hints.length) {
+            hintText.textContent = data.hints[pistaIndex++];
+            hintBox.classList.add("show"); 
+        } else {
+            pistaIndex = 0; 
+            hintText.textContent = data.hints[pistaIndex++];
+            hintBox.classList.add("show"); 
+        }
+
+    }
+});
+
+document.getElementById("close-hint").addEventListener("click", () => {
+    const hintBox = document.getElementById("hint-box");
+    hintBox.classList.remove("show");
 });
