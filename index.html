@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clasificación de Conceptos</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   </head>
   <body>
 
@@ -37,6 +40,12 @@
       <button id="next-level" class="hidden action-button" aria-label="Avanzar al siguiente nivel">Siguiente</button>
     </div>
 
+    <div id="congratulations" class="hidden">
+      <div class="confetti"></div>
+      <h2>¡Felicidades! Has completado todos los niveles.</h2>
+      <button id="back-to-home">Volver</button>
+    </div>
+  
     <script src="script.js"></script>
   </body>
 </html>

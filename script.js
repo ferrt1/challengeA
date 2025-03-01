@@ -99,7 +99,7 @@ const niveles = {
             "Las pruebas unitarias permiten verificar que las funciones se comportan como se espera.",
             "Usar asserts ayuda a comprobar que el estado del programa es el esperado en las pruebas."
         ]
-    }
+     }
 };
 
 let nivelActual = 1;
@@ -170,12 +170,12 @@ function iniciarNivel(nivel) {
                 div.appendChild(draggedElement);
                 draggedElement.style.background = "#b8daba";
                 draggedElement.style.border = "1px solid #70b578";
+                draggedElement.style.color = "#103b14"; 
                 draggedElement.setAttribute("draggable", "false");
                 verificarNivelCompletado();
             } else {
                 cantidadErrores++;
                 document.getElementById("error-message").innerText = `Errores: ${cantidadErrores}`;
-        
                 document.body.classList.add("error");
                 document.body.classList.add("shake");
                 document.getElementById("error-message").style.color = "black";
@@ -183,7 +183,6 @@ function iniciarNivel(nivel) {
                     document.body.classList.remove("shake");
                     document.body.classList.remove("error");
                     document.getElementById("error-message").style.color = "#d61b1b";
-
                 }, 1000); 
             }
         });
@@ -192,6 +191,31 @@ function iniciarNivel(nivel) {
     document.getElementById("next-level").classList.add("hidden");
 }
 
+function mostrarFelicitaciones() {
+    const congratulations = document.getElementById("congratulations");
+    congratulations.classList.add("show");
+
+    const jsConfetti = new JSConfetti();
+
+    function lanzarConfetti() {
+        jsConfetti.addConfetti({
+            confettiRadius: 6,
+            confettiNumber: 500,
+            colors: ["#ff0", "#0f0", "#00f", "#f00"],
+        });
+    }
+
+    lanzarConfetti();
+    let intervalo = setInterval(lanzarConfetti, 1500); 
+
+    setTimeout(() => {
+        clearInterval(intervalo);
+    }, 6000);
+
+    document.getElementById("back-to-home").addEventListener("click", () => {
+        location.reload();
+    });
+}
 
 function verificarNivelCompletado() {
     let totalItems = document.querySelectorAll(".item").length;
@@ -217,7 +241,7 @@ document.getElementById("next-level").addEventListener("click", () => {
     if (niveles[siguienteNivel]) {
         iniciarNivel(siguienteNivel);
     } else {
-        alert("¡Felicidades! Has completado todos los niveles.");
+        mostrarFelicitaciones();
     }
 });
 
@@ -235,11 +259,5 @@ document.getElementById("hint-button").addEventListener("click", () => {
             hintText.textContent = data.hints[pistaIndex++];
             hintBox.classList.add("show"); 
         }
-
     }
-});
-
-document.getElementById("close-hint").addEventListener("click", () => {
-    const hintBox = document.getElementById("hint-box");
-    hintBox.classList.remove("show");
 });
