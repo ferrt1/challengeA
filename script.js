@@ -20,12 +20,13 @@ const niveles = {
             { id: "bucle", texto: "Bucles" }
         ],
         hints: [
-            "Los condicionales controlan el flujo de un programa.",
+            "Los condicionales permiten tomar decisiones en el código.",
             "El operador ternario es una forma compacta de escribir un 'if'.",
-            "Un 'switch' se usa cuando tienes múltiples condiciones relacionadas.",
-            "Los bucles se usan para repetir acciones.",
-            "El bucle 'for' es útil cuando sabes cuántas veces repetir algo.",
-            "El 'while' se usa cuando no sabes cuántas veces repetir algo."
+            "Un 'switch' es útil cuando tienes múltiples opciones basadas en una variable.",
+            "Los bucles permiten repetir instrucciones sin escribirlas varias veces.",
+            "El bucle 'for' es ideal cuando conoces el número de repeticiones.",
+            "El 'while' se ejecuta mientras una condición sea verdadera.",
+            "El 'do-while' se ejecuta al menos una vez antes de verificar la condición."
         ]
     },
     2: {
@@ -41,19 +42,41 @@ const niveles = {
             { id: "list-item", texto: "Listas (List)", categoria: "complejo" }
         ],
         boxes: [
-            { id: "primitivo", texto: "Primitivos" },
-            { id: "complejo", texto: "Complejos" }
+            { id: "primitivo", texto: "Tipos Primitivos" },
+            { id: "complejo", texto: "Tipos Complejos" }
         ],
         hints: [
-            "Los datos primitivos son los más básicos y no se pueden dividir.",
+            "Los tipos primitivos son los más básicos y no pueden descomponerse.",
             "Los enteros se usan para números sin decimales.",
-            "Las cadenas de texto son secuencias de caracteres.",
-            "Los objetos son estructuras de datos más complejas que pueden contener múltiples tipos de datos.",
-            "Las listas pueden almacenar elementos de cualquier tipo, incluyendo otros objetos."
+            "Los booleanos representan valores de verdadero o falso.",
+            "Los caracteres almacenan un solo símbolo, como 'A' o '9'.",
+            "Los arreglos y listas almacenan colecciones de datos.",
+            "Los objetos pueden tener múltiples propiedades y métodos."
         ]
     },
     3: {
-        titulo: "Nivel 3: Paradigmas de Programación",
+        titulo: "Nivel 3: Funciones y Métodos",
+        items: [
+            { id: "funcion-item", texto: "Funciones", categoria: "funcion" },
+            { id: "parametro-item", texto: "Parámetros", categoria: "funcion" },
+            { id: "retorno-item", texto: "Valor de Retorno", categoria: "funcion" },
+            { id: "metodo-item", texto: "Métodos", categoria: "metodo" },
+            { id: "llamada-item", texto: "Llamada a función", categoria: "metodo" }
+        ],
+        boxes: [
+            { id: "funcion", texto: "Funciones" },
+            { id: "metodo", texto: "Métodos" }
+        ],
+        hints: [
+            "Las funciones permiten reutilizar código y evitar repeticiones.",
+            "Los parámetros permiten enviar datos a una función.",
+            "Una función puede devolver un valor usando 'return'.",
+            "Los métodos son funciones asociadas a un objeto o clase.",
+            "Para ejecutar una función, hay que llamarla con su nombre y paréntesis."
+        ]
+    },
+    4: {
+        titulo: "Nivel 4: Paradigmas de Programación",
         items: [
             { id: "objeto-item", texto: "Objetos", categoria: "poo" },
             { id: "clase-item", texto: "Clases", categoria: "poo" },
@@ -70,16 +93,16 @@ const niveles = {
             { id: "imperativa", texto: "Programación Imperativa" }
         ],
         hints: [
-            "Los objetos agrupan datos y comportamientos relacionados.",
-            "La herencia permite crear nuevas clases basadas en otras.",
-            "El polimorfismo permite que un mismo método se comporte de diferentes maneras.",
-            "En la programación funcional, las funciones son los elementos básicos.",
-            "Las funciones puras no tienen efectos secundarios y siempre devuelven el mismo resultado para los mismos parámetros.",
-            "La programación imperativa se enfoca en cómo se deben hacer las cosas paso a paso."
+            "La POO se basa en objetos y clases que modelan entidades del mundo real.",
+            "La programación imperativa describe el 'cómo' de la ejecución paso a paso.",
+            "La herencia permite crear nuevas clases basadas en otras existentes.",
+            "El polimorfismo permite que un mismo método funcione de diferentes formas.",
+            "La programación funcional trata las funciones como valores y evita estados mutables.",
+            "Las funciones puras siempre devuelven el mismo resultado para los mismos parámetros."
         ]
     },
-    4: {
-        titulo: "Nivel 4: Errores y Depuración",
+    5: {
+        titulo: "Nivel 5: Errores y Depuración",
         items: [
             { id: "sintaxis-item", texto: "No cerrar paréntesis", categoria: "sintaxis" },
             { id: "variable-no-declarada-item", texto: "Variable no declarada", categoria: "sintaxis" },
@@ -95,12 +118,13 @@ const niveles = {
         ],
         hints: [
             "Los errores de sintaxis ocurren cuando el código no sigue las reglas del lenguaje.",
-            "Los errores lógicos no impiden la ejecución del código pero causan resultados incorrectos.",
-            "Las pruebas unitarias permiten verificar que las funciones se comportan como se espera.",
-            "Usar asserts ayuda a comprobar que el estado del programa es el esperado en las pruebas."
+            "Los errores lógicos no detienen el programa, pero producen resultados incorrectos.",
+            "Las pruebas unitarias ayudan a verificar que el código funciona correctamente.",
+            "Los asserts permiten comprobar que el programa cumple con ciertas condiciones."
         ]
-     }
+    }
 };
+
 
 let nivelActual = 1;
 let cantidadErrores = 0;
